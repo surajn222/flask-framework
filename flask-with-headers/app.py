@@ -19,7 +19,6 @@ def hello_world(u_path):
 
 @app.route('/list/')
 def list_api_key():
-    print(request.headers)
     dict_request_headers = request.headers
     print(json.dumps(dict_request_headers, indent=2, default=str))
     return jsonify(**dict_request_headers)
