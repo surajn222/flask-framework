@@ -9,3 +9,5 @@ spec:
       image: surajn222/apisix:etcd
       ports:
       - containerPort: 5000
+      command: [ "python3" ]
+      args: [ "app.py", "--host=0.0.0.0", "--etcd_host='127.0.0.1'", "--etcd_port=2379" ]

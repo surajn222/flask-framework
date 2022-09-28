@@ -35,7 +35,8 @@ def insert_keys(client, access_key, backend_url):
                 list_rules = json_val['plugins']['traffic-split']['rules']
 
                 #access_key, backend_url = get_access_keys()
-                new_rule = """{'weighted_upstreams': [{'upstream': {'hash_on': 'vars', 'name': 'upstream-C', 'pass_host': 'pass', 'nodes': {'""" + str(backend_url) + """': 1}, 'type': 'roundrobin', 'scheme': 'http'}, 'weight': 3}], 'match': [{'vars': [['http_x-api-id', '==', '""" + str(access_key) + """']]}]}"""
+                #new_rule = """{'weighted_upstreams': [{'upstream': {'hash_on': 'vars', 'name': 'upstream-C', 'pass_host': 'pass', 'nodes': {'""" + str(backend_url) + """': 1}, 'type': 'roundrobin', 'scheme': 'http'}, 'weight': 3}], 'match': [{'vars': [['http_x-api-id', '==', '""" + str(access_key) + """']]}]}"""
+                new_rule = """{"match": [{"vars": [["http_Authorization","~~","AWS """ + str(access_key) + """:"]]}],"weighted_upstreams": [{"upstream_id": "427278473699001408","weight": 3}]}"""
                 list_rules.append(json.loads(new_rule.replace("'", "\"")))
 
                 # Modify the key
@@ -75,3 +76,9 @@ if __name__ == "__main__":
 #                 print(val[0:10])
 #         except Exception as e:
 #                 print("exception: " + str(e))
+
+
+
+
+
+
