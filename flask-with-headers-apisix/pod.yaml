@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apisix-etcd-service-2
+  namespace: apisix
+spec:
+  selector:
+    matchLabels:
+      run: apisix-etcd-service-2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: apisix-etcd-service-2
+    spec:
+      containers:
+      - name: apisix-etcd-service-2
+        image: surajn222/apisix:etcd
+        command: ["python"]
+        args: ["app.py", "--host=0.0.0.0", "--etcd_host='127.0.0.1'", "--etcd_port=2379"]
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apisix-etcd-service-2
+  namespace: apisix
+  labels:
+    run: apisix-etcd-service-2
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    run: apisix-etcd-service-2

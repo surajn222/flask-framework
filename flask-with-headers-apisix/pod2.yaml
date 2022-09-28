@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apisix-etcd-service-2
+  namespace: apisix
+spec:
+  containers:
+    - name: flask-emr
+      image: surajn222/apisix:etcd
+      ports:
+      - containerPort: 5000
